@@ -10,25 +10,27 @@ import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 
 const Form = () => {
-       const [name, setName] = useState("");
-       const [email, setEmail] = useState("");
-    const [ age, setAge ] = useState( "" );
-       const [answer, setAnswer] = useState("");
-    
-       const userAction = async () => {
-         await fetch(
-           "https://hmui533tpk.execute-api.eu-west-1.amazonaws.com/PROD/entries/" +
-             email +
-             "/" +
-             name +
-             "/" +
-             age +
-             "/" +
-             answer
-         );
-         console.log(email + name + age);
-       };
-
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [answer, setAnswer] = useState("");
+  const count = 0;
+  const userAction = async () => {
+    const id = count + 1;
+    await fetch(
+      "https://hmui533tpk.execute-api.eu-west-1.amazonaws.com/PROD/entries/" +
+        email +
+        "/" +
+        name +
+        "/" +
+        age +
+        "/" +
+        answer +
+        "/" +
+        id
+    );
+    console.log(email + name + age+id);
+  };
 
   return (
     <form onSubmit={userAction}>
