@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -14,9 +14,39 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [answer, setAnswer] = useState("");
-  const count = 0;
+  const [count, setCounter] = useState();
+  let instancesCount = [];
+  var numbers = []; // new empty array
+
+  var min, max, r, n, p;
+
+  min = 1;
+  max = 10;
+  r = 1; // how many numbers you want to extract
+
+  for (let i = 0; i < r; i++) {
+    do {
+      n = Math.floor(Math.random() * (max - min + 1)) + min;
+      p = numbers.includes(n);
+      if (!p) {
+        numbers.push(n);
+      }
+    } while (p);
+  }
+
+  console.log(numbers);
+
+  useEffect(() => {
+    instancesCount += 1;
+    console.log({ instancesCount });
+  }, []);
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  const rndInt = randomIntFromInterval(1, 6);
   const userAction = async () => {
-    const id = count + 1;
+    const id = 1;
     await fetch(
       "https://hmui533tpk.execute-api.eu-west-1.amazonaws.com/PROD/entries/" +
         email +
@@ -27,9 +57,9 @@ const Form = () => {
         "/" +
         answer +
         "/" +
-        id
+        numbers
     );
-    console.log(email + name + age+id);
+    console.log(email + name + age + id);
   };
 
   return (
